@@ -1,0 +1,15 @@
+{
+  "name": "Iron Log",
+  "short_name": "Iron Log",
+  "description": "Track gym workouts, sets, reps, and weight — stored locally on your phone.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#15141a",
+  "theme_color": "#15141a",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
