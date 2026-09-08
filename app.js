@@ -273,15 +273,20 @@ function currentExercise() {
   return state.activeSession.exercises[state.activeExerciseIndex];
 }
 
-function toggleRep(setIndex, repIndex) {
+function isSetComplete(set) {
+  return set.repsDone.length > 0 && set.repsDone.every(Boolean);
+}
+function toggleSetComplete(setIndex) {
   const set = currentExercise().sets[setIndex];
-  set.repsDone[repIndex] = !set.repsDone[repIndex];
+  const complete = isSetComplete(set);
+  set.repsDone = Array(set.targetReps).fill(!complete);
   render();
 }
-function addRep(setIndex) {
+function adjustReps(setIndex, delta) {
   const set = currentExercise().sets[setIndex];
-  set.targetReps += 1;
-  set.repsDone.push(false);
+  const wasComplete = isSetComplete(set);
+  set.targetReps = Math.max(1, set.targetReps + delta);
+  set.repsDone = Array(set.targetReps).fill(wasComplete);
   render();
 }
 function adjustWeight(setIndex, delta) {
@@ -311,12 +316,7 @@ function renderExerciseDetail() {
   const step = settings.unit === 'kg' ? 2.5 : 5;
   let body = '';
   ex.sets.forEach((set, si) => {
-    const complete = set.repsDone.length > 0 && set.repsDone.every(Boolean);
-    let reps = '';
-    set.repsDone.forEach((done, ri) => {
-      reps += `<button class="rep-circle ${done ? 'done' : ''}" onclick="toggleRep(${si},${ri})">${ri + 1}</button>`;
-    });
-    reps += `<button class="rep-circle add-rep" title="Add a rep" onclick="addRep(${si})">+</button>`;
+    const complete = isSetComplete(set);
     body += `
       <div class="set-block ${complete ? 'complete' : ''}">
         <div class="set-block-head">
@@ -332,7 +332,14 @@ function renderExerciseDetail() {
           </div>
           <button onclick="adjustWeight(${si}, ${step})">+</button>
         </div>
-        <div class="rep-grid">${reps}</div>
+        <div class="weight-control">
+          <button onclick="adjustReps(${si}, -1)">−</button>
+          <div class="weight-value">${set.targetReps}<span class="unit">reps</span></div>
+          <button onclick="adjustReps(${si}, 1)">+</button>
+        </div>
+        <button class="set-toggle ${complete ? 'done' : ''}" onclick="toggleSetComplete(${si})">
+          ${complete ? '✓ Set complete' : 'Mark set complete'}
+        </button>
       </div>`;
   });
   body += `<button class="btn btn-secondary" onclick="addSet()">+ Add set</button>`;

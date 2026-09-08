@@ -292,32 +292,22 @@ input {
 }
 .weight-value .unit { font-size: 13px; color: var(--text-dim); margin-left: 4px; font-family: var(--font-ui); }
 
-.rep-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.rep-circle {
-  width: 42px; height: 42px;
-  border-radius: 50%;
+.set-toggle {
+  width: 100%;
+  padding: 16px;
+  border-radius: 8px;
   border: 2px solid var(--border);
   background: var(--surface-alt);
   color: var(--text-dim);
-  font-family: var(--font-num);
   font-weight: 700;
   font-size: 15px;
+  margin-top: 4px;
 }
-.rep-circle.done {
+.set-toggle:active { background: var(--border); }
+.set-toggle.done {
   background: var(--good);
   border-color: var(--good);
   color: #0e160e;
-}
-.rep-circle.add-rep {
-  border-style: dashed;
-  color: var(--accent);
-  border-color: var(--accent-dim);
-  background: none;
-  font-size: 20px;
 }
 
 .remove-set-btn {

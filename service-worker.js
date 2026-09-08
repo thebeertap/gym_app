@@ -1,4 +1,4 @@
-const CACHE_NAME = 'iron-log-v1';
+const CACHE_NAME = 'iron-log-v2';
 const ASSETS = [
   './',
   './index.html',
@@ -7,6 +7,9 @@ const ASSETS = [
   './manifest.json',
   './icons/icon-192.png',
   './icons/icon-512.png',
+  './icons/icon-180.png',
+  './icons/icon-maskable-192.png',
+  './icons/icon-maskable-512.png',
 ];
 
 self.addEventListener('install', (event) => {
